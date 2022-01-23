@@ -1,10 +1,9 @@
 package com.peya.app.rpg.object.character;
 
 
-import com.google.common.collect.Sets;
 import com.peya.app.rpg.DamageMultiplier;
-import com.peya.app.rpg.object.receiver.AttackReceiver;
 import com.peya.app.rpg.object.Faction;
+import com.peya.app.rpg.object.receiver.AttackReceiver;
 import com.peya.app.rpg.util.Position;
 import lombok.Getter;
 
@@ -13,6 +12,7 @@ import java.util.Set;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.collect.Sets.intersection;
+import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.Math.min;
 
 @Getter
@@ -32,7 +32,7 @@ public class Character extends AttackReceiver {
             DamageMultiplier damageMultiplier) {
         super(name, health, position);
         this.attachMaxRange = attachMaxRange;
-        this.factions = Sets.newHashSet();
+        this.factions = newHashSet();
         initializeLevel(level);
         initializeDamageMultiplier(damageMultiplier);
     }

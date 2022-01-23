@@ -4,6 +4,7 @@ import com.peya.app.rpg.DamageMultiplier;
 import com.peya.app.rpg.util.Position;
 
 import static com.peya.app.rpg.DamageMultiplier.defaultDamageMultiplier;
+import static com.peya.app.rpg.util.Position.zero;
 
 public final class CharacterBuilder {
     private DamageMultiplier damageMultiplier;
@@ -16,7 +17,7 @@ public final class CharacterBuilder {
     private CharacterBuilder() {
         name = "";
         attachMaxRange = 10;
-        position = new Position();
+        position = zero();
         health = 100;
         level = 1;
         damageMultiplier = defaultDamageMultiplier();
@@ -25,9 +26,13 @@ public final class CharacterBuilder {
     public static CharacterBuilder aCharacter() {
         return new CharacterBuilder();
     }
-
+    
     public CharacterBuilder position(float x, float y) {
-        this.position = new Position(x, y);
+        return position(new Position(x, y));
+    }
+
+    public CharacterBuilder position(Position position) {
+        this.position = position;
         return this;
     }
 

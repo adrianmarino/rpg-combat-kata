@@ -1,7 +1,8 @@
 package com.peya.app.rpg.object.receiver;
 
-import com.peya.app.rpg.object.character.CharacterBuilder;
 import com.peya.app.rpg.util.Position;
+
+import static com.peya.app.rpg.util.Position.zero;
 
 public final class AttackReceiverBuilder {
     private Position position;
@@ -10,7 +11,7 @@ public final class AttackReceiverBuilder {
 
     private AttackReceiverBuilder() {
         name = "";
-        position = new Position();
+        position = zero();
         health = 100;
     }
 
@@ -19,7 +20,11 @@ public final class AttackReceiverBuilder {
     }
 
     public AttackReceiverBuilder position(float x, float y) {
-        this.position = new Position(x, y);
+        return position(new Position(x, y));
+    }
+
+    public AttackReceiverBuilder position(Position position) {
+        this.position = position;
         return this;
     }
 
