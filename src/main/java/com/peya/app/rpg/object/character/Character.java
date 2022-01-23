@@ -2,9 +2,9 @@ package com.peya.app.rpg.object.character;
 
 
 import com.google.common.collect.Sets;
-import com.peya.app.rpg.util.Position;
-import com.peya.app.rpg.attack.AttackResolver;
+import com.peya.app.rpg.DamageMultiplier;
 import com.peya.app.rpg.object.AttackableObject;
+import com.peya.app.rpg.util.Position;
 import lombok.Getter;
 
 import java.util.Set;
@@ -19,7 +19,7 @@ public class Character extends AttackableObject {
 
     private final float attachMaxRange;
     private final Set<Faction> factions;
-    private AttackResolver attackResolver;
+    private DamageMultiplier damageMultiplier;
     private int level;
 
     Character(
@@ -28,17 +28,17 @@ public class Character extends AttackableObject {
             float health,
             int level,
             float attachMaxRange,
-            AttackResolver attackResolver) {
+            DamageMultiplier damageMultiplier) {
         super(name, health, position);
         this.attachMaxRange = attachMaxRange;
         this.factions = Sets.newHashSet();
         initializeLevel(level);
-        initializeAttachStrategyResolver(attackResolver);
+        initializeDamageMultiplier(damageMultiplier);
     }
 
-    private void initializeAttachStrategyResolver(AttackResolver attackResolver) {
-        checkNotNull(attackResolver, "An attach strategy resolve is required to create a Character");
-        this.attackResolver = attackResolver;
+    private void initializeDamageMultiplier(DamageMultiplier damageMultiplier) {
+        checkNotNull(damageMultiplier, "A damage multiplier is required to create a Character");
+        this.damageMultiplier = damageMultiplier;
     }
 
     private void initializeLevel(int level) {
@@ -49,9 +49,7 @@ public class Character extends AttackableObject {
     // Attack
 
     public void attach(AttackableObject target, float damage) {
-        var attachStrategy = attackResolver.getAttach(target);
-
-        attachStrategy.perform(this, target, damage);
+        target.receiveAttack(this, damage);
     }
 
     public boolean isInsideAttachRange(AttackableObject target) {
@@ -60,6 +58,12 @@ public class Character extends AttackableObject {
 
     public float levelDiff(Character target) {
         return this.getLevel() - target.getLevel();
+    }
+
+    @Override
+    protected void attack(Character attacker, float damage) {
+        if (attacker.isAlliedWith(this)) return;
+        this.damage(damage * damageMultiplier.getMultiplier(attacker, this));
     }
 
     // Heal

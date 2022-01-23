@@ -1,4 +1,4 @@
-package com.peya.app.rpg.attack;
+package com.peya.app.rpg;
 
 import com.peya.app.rpg.object.character.Character;
 import lombok.Getter;

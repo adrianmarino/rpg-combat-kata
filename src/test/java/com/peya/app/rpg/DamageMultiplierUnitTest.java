@@ -3,7 +3,7 @@ package com.peya.app.rpg;
 import org.junit.jupiter.api.Test;
 
 import static com.peya.app.rpg.object.character.CharacterBuilder.aCharacter;
-import static com.peya.app.rpg.attack.DamageMultiplier.defaultDamageMultiplier;
+import static com.peya.app.rpg.DamageMultiplier.defaultDamageMultiplier;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 

@@ -1,5 +1,6 @@
 package com.peya.app.rpg.object;
 
+import com.peya.app.rpg.object.character.Character;
 import com.peya.app.rpg.util.Position;
 import lombok.Getter;
 
@@ -25,6 +26,17 @@ public class AttackableObject {
     private void initializeHealth(float health) {
         checkArgument(health > 0, "Health must be greater than 0%");
         this.health = health;
+    }
+
+    public void receiveAttack(Character attacker, float damage) {
+        checkArgument(!attacker.equals(this), "A character cannot damage itself");
+        if (!attacker.isInsideAttachRange(this)) return;
+
+        attack(attacker, damage);
+    }
+
+    protected void attack(Character attacker, float damage) {
+        this.damage(damage);
     }
 
     public void damage(float value) {

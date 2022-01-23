@@ -1,11 +1,12 @@
 package com.peya.app.rpg.object.character;
 
-import com.peya.app.rpg.attack.DamageMultiplier;
+import com.peya.app.rpg.DamageMultiplier;
 import com.peya.app.rpg.util.Position;
-import com.peya.app.rpg.attack.AttackResolver;
+
+import static com.peya.app.rpg.DamageMultiplier.defaultDamageMultiplier;
 
 public final class CharacterBuilder {
-    private AttackResolver attackResolver;
+    private DamageMultiplier damageMultiplier;
     private String name;
     private float attachMaxRange;
     private Position position;
@@ -18,7 +19,7 @@ public final class CharacterBuilder {
         position = new Position();
         health = 100;
         level = 1;
-        attackResolver = new AttackResolver(DamageMultiplier.defaultDamageMultiplier());
+        damageMultiplier = defaultDamageMultiplier();
     }
 
     public static CharacterBuilder aCharacter() {
@@ -50,12 +51,12 @@ public final class CharacterBuilder {
         return this;
     }
 
-    public CharacterBuilder attackStrategyResolver(AttackResolver attackResolver) {
-        this.attackResolver = attackResolver;
+    public CharacterBuilder damageMultiplier(DamageMultiplier damageMultiplier) {
+        this.damageMultiplier = damageMultiplier;
         return this;
     }
 
     public Character build() {
-        return new Character(name, position, health, level, attachMaxRange, attackResolver);
+        return new Character(name, position, health, level, attachMaxRange, damageMultiplier);
     }
 }
