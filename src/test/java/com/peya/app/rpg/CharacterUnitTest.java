@@ -17,28 +17,30 @@ class CharacterUnitTest {
     @DisplayName("When apply a 50% damage to a character with 100 health it decrease 50 health and keep alive")
     void test1() {
         // Prepare
-        var character = aCharacter().build();
+        var characterA = aCharacter().build();
+        var characterB = aCharacter().build();
 
         // Perform
-        character.damage(50F);
+        characterB.receiveAttack(characterA, 50F);
 
         // Asserts
-        assertThat(character.getHealth(), is(50F));
-        assertThat(character.destroyed(), is(false));
+        assertThat(characterB.getHealth(), is(50F));
+        assertThat(characterB.destroyed(), is(false));
     }
 
     @Test
     @DisplayName("When apply a 1000 damage to a character with 100 health it decrease 0 health and dead")
     void test2() {
         // Prepare
-        var character = aCharacter().build();
+        var characterA = aCharacter().build();
+        var characterB = aCharacter().build();
 
         // Perform
-        character.damage(1000F);
+        characterB.receiveAttack(characterA, 1000F);
 
         // Asserts
-        assertThat(character.getHealth(), is(0F));
-        assertThat(character.destroyed(), is(true));
+        assertThat(characterB.getHealth(), is(0F));
+        assertThat(characterB.destroyed(), is(true));
     }
 
     @Test
@@ -279,5 +281,30 @@ class CharacterUnitTest {
 
         // Assert
         assertThat(characterB.getHealth(), is(50F));
+    }
+
+    @Test
+    @DisplayName("When heal with a negative value it throws an exception")
+    void test21() {
+        // Prepare
+        var faction = new Faction("faction");
+        var characterA = aCharacter().build().joinTo(faction);
+        var characterB = aCharacter().build().joinTo(faction);
+
+        // Perform and assert
+        assertThrows(IllegalArgumentException.class, () -> characterA.healTo(characterB, -10F));
+    }
+
+    @Test
+    @DisplayName("When damage with a negative value it throws an exception")
+    void test22() {
+        // Prepare
+        var characterA = aCharacter().build();
+        var characterB = aCharacter().build();
+
+        // Perform and assert
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> characterB.receiveAttack(characterA, -10F));
     }
 }

@@ -1,15 +1,17 @@
 package com.peya.app.rpg;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.peya.app.rpg.object.character.CharacterBuilder.aCharacter;
 import static com.peya.app.rpg.DamageMultiplier.defaultDamageMultiplier;
+import static com.peya.app.rpg.object.character.CharacterBuilder.aCharacter;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 class DamageMultiplierUnitTest {
 
     @Test
+    @DisplayName("When create a DamageMultiplier, it should be configured with default values")
     void test1() {
         // Perform
         var multiplier = defaultDamageMultiplier();
@@ -22,6 +24,7 @@ class DamageMultiplierUnitTest {
     }
 
     @Test
+    @DisplayName("When attacker level is less than 5 it perform 50% less damage")
     void test2() {
         // Prepare
         var attacker = aCharacter().build();
@@ -33,6 +36,7 @@ class DamageMultiplierUnitTest {
     }
 
     @Test
+    @DisplayName("When attacker level is greater than 5 it perform 50% more damage")
     void test3() {
         // Prepare
         var attacker = aCharacter().level(6).build();
@@ -44,6 +48,7 @@ class DamageMultiplierUnitTest {
     }
 
     @Test
+    @DisplayName("When both attacker and attackable has a level diff less than 5 it perform specified damage")
     void test4() {
         // Prepare
         var attacker = aCharacter().build();

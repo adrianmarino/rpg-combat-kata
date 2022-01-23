@@ -1,6 +1,5 @@
 package com.peya.app.rpg;
 
-import com.peya.app.rpg.object.character.Faction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,24 +20,6 @@ class CharacterBuilderUnitTest {
         assertThat(character.getHealth(), is(100F));
         assertThat(character.getLevel(), is(1));
         assertThat(character.destroyed(), is(false));
-    }
-
-    @Test
-    @DisplayName("When heal with a negative value it throws an exception")
-    void test2() {
-        // Prepare
-        var faction = new Faction("faction");
-        var characterA = aCharacter().build().joinTo(faction);
-        var characterB = aCharacter().build().joinTo(faction);
-
-        // Perform and assert
-        assertThrows(IllegalArgumentException.class, () -> characterA.healTo(characterB, -10F));
-    }
-
-    @Test
-    @DisplayName("When damage with a negative value it throws an exception")
-    void test3() {
-        assertThrows(IllegalArgumentException.class, () -> aCharacter().build().damage(-10F));
     }
 
     @Test

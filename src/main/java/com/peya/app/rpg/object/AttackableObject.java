@@ -39,7 +39,7 @@ public class AttackableObject {
         this.damage(damage);
     }
 
-    public void damage(float value) {
+    protected void damage(float value) {
         checkArgument(value >= 0, "Damage value must be greater than or equal to 0");
         health = max(health - value, 0);
     }
