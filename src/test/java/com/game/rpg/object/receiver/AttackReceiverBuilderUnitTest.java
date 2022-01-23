@@ -21,7 +21,7 @@ class AttackReceiverBuilderUnitTest {
         // Assets
         assertThat(attackReceiver.getHealth(), is(100F));
         assertThat(attackReceiver.getMaxHealth(), is(100F));
-        assertThat(attackReceiver.getName(), is(""));
+        assertThat(attackReceiver.getName(), is(AttackReceiver.class.getSimpleName()));
         assertThat(attackReceiver.getPosition(), Matchers.is(Position.zero()));
         assertThat(attackReceiver.destroyed(), is(false));
     }

@@ -15,7 +15,7 @@ public class Faction {
     private final Set<Character> characters;
 
     public Faction() {
-        this("faction");
+        this(Faction.class.getSimpleName());
     }
 
     public Faction(String name) {

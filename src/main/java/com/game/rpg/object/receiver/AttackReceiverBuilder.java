@@ -2,14 +2,16 @@ package com.game.rpg.object.receiver;
 
 import com.game.rpg.util.Position;
 
+import static com.game.rpg.util.Position.zero;
+
 public final class AttackReceiverBuilder {
     private Position position;
     private String name;
     private float health;
 
     private AttackReceiverBuilder() {
-        name = "";
-        position = Position.zero();
+        name = AttackReceiver.class.getSimpleName();
+        position = zero();
         health = 100;
     }
 

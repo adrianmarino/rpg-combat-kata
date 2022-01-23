@@ -1,6 +1,5 @@
 package com.game.rpg.object.character;
 
-import com.game.rpg.object.character.CharacterBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +21,7 @@ class CharacterBuilderUnitTest {
         assertThat(character.getHealth(), is(100F));
         assertThat(character.getAttachMaxRange(), is(10F));
         assertThat(character.getMaxHealth(), is(100F));
-        assertThat(character.getName(), is(""));
+        assertThat(character.getName(), is(Character.class.getSimpleName()));
         assertThat(character.getPosition(), is(zero()));
         assertThat(character.destroyed(), is(false));
     }

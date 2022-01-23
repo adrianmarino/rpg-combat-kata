@@ -1,15 +1,12 @@
 package com.game.rpg.object.character;
 
 import com.game.rpg.object.Faction;
-import com.game.rpg.object.character.CharacterBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-// https://github.com/ardalis/kata-catalog/blob/main/katas/RPG%20Combat.md
 
 class CharacterUnitTest {
 

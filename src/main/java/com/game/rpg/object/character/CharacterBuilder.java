@@ -14,7 +14,7 @@ public final class CharacterBuilder {
     private int level;
 
     private CharacterBuilder() {
-        name = "";
+        name = Character.class.getSimpleName();
         attachMaxRange = 10;
         position = zero();
         health = 100;
