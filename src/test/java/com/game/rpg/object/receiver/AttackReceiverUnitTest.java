@@ -16,30 +16,30 @@ public class AttackReceiverUnitTest {
     @DisplayName("When apply a 50% damage to a character with 100 health it decrease 50 health and keep alive")
     void test1() {
         // Prepare
-        var characterA = aCharacter().build();
-        var characterB = aCharacter().build();
+        var character = aCharacter().build();
+        var attackReceiver = anAttackReceiver().build();
 
         // Perform
-        characterB.receiveAttack(characterA, 50F);
+        attackReceiver.receiveAttack(character, 50F);
 
         // Asserts
-        assertThat(characterB.getHealth(), is(50F));
-        assertThat(characterB.destroyed(), is(false));
+        assertThat(attackReceiver.getHealth(), is(50F));
+        assertThat(attackReceiver.destroyed(), is(false));
     }
 
     @Test
     @DisplayName("When apply a 1000 damage to a character with 100 health it decrease 0 health and dead")
     void test2() {
         // Prepare
-        var characterA = aCharacter().build();
-        var characterB = aCharacter().build();
+        var character = aCharacter().build();
+        var attackReceiver = anAttackReceiver().build();
 
         // Perform
-        characterB.receiveAttack(characterA, 1000F);
+        attackReceiver.receiveAttack(character, 1000F);
 
         // Asserts
-        assertThat(characterB.getHealth(), is(0F));
-        assertThat(characterB.destroyed(), is(true));
+        assertThat(attackReceiver.getHealth(), is(0F));
+        assertThat(attackReceiver.destroyed(), is(true));
     }
 
 
@@ -77,12 +77,12 @@ public class AttackReceiverUnitTest {
     @DisplayName("When damage with a negative value it throws an exception")
     void test5() {
         // Prepare
-        var characterA = aCharacter().build();
-        var characterB = aCharacter().build();
+        var character = aCharacter().build();
+        var attackReceiver = anAttackReceiver().build();
 
         // Perform and assert
         assertThrows(
                 IllegalArgumentException.class,
-                () -> characterB.receiveAttack(characterA, -10F));
+                () -> attackReceiver.receiveAttack(character, -10F));
     }
 }

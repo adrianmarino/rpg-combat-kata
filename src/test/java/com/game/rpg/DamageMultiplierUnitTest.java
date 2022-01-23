@@ -3,6 +3,7 @@ package com.game.rpg;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static com.game.rpg.DamageMultiplier.defaultDamageMultiplier;
 import static com.game.rpg.object.character.CharacterBuilder.aCharacter;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -13,7 +14,7 @@ class DamageMultiplierUnitTest {
     @DisplayName("When create a DamageMultiplier, it should be configured with default values")
     void test1() {
         // Perform
-        var multiplier = DamageMultiplier.defaultDamageMultiplier();
+        var multiplier = defaultDamageMultiplier();
 
         // Asserts
         assertThat(multiplier.getNonDiffDamage(), is(1F));
@@ -28,7 +29,7 @@ class DamageMultiplierUnitTest {
         // Prepare
         var attacker = aCharacter().build();
         var target = aCharacter().level(6).build();
-        var multiplier = DamageMultiplier.defaultDamageMultiplier();
+        var multiplier = defaultDamageMultiplier();
 
         // Perform and assert
         assertThat(multiplier.getMultiplier(attacker, target), is(.5F));
@@ -40,7 +41,7 @@ class DamageMultiplierUnitTest {
         // Prepare
         var attacker = aCharacter().level(6).build();
         var target = aCharacter().build();
-        var multiplier = DamageMultiplier.defaultDamageMultiplier();
+        var multiplier = defaultDamageMultiplier();
 
         // Perform and assert
         assertThat(multiplier.getMultiplier(attacker, target), is(1.5F));
@@ -52,7 +53,7 @@ class DamageMultiplierUnitTest {
         // Prepare
         var attacker = aCharacter().build();
         var target = aCharacter().build();
-        var multiplier = DamageMultiplier.defaultDamageMultiplier();
+        var multiplier = defaultDamageMultiplier();
 
         // Perform and assert
         assertThat(multiplier.getMultiplier(attacker, target), is(1F));
