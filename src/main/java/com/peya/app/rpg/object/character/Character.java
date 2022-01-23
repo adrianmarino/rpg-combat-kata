@@ -3,7 +3,8 @@ package com.peya.app.rpg.object.character;
 
 import com.google.common.collect.Sets;
 import com.peya.app.rpg.DamageMultiplier;
-import com.peya.app.rpg.object.AttackableObject;
+import com.peya.app.rpg.object.receiver.AttackReceiver;
+import com.peya.app.rpg.object.Faction;
 import com.peya.app.rpg.util.Position;
 import lombok.Getter;
 
@@ -15,7 +16,7 @@ import static com.google.common.collect.Sets.intersection;
 import static java.lang.Math.min;
 
 @Getter
-public class Character extends AttackableObject {
+public class Character extends AttackReceiver {
 
     private final float attachMaxRange;
     private final Set<Faction> factions;
@@ -48,11 +49,11 @@ public class Character extends AttackableObject {
 
     // Attack
 
-    public void attach(AttackableObject target, float damage) {
+    public void attach(AttackReceiver target, float damage) {
         target.receiveAttack(this, damage);
     }
 
-    public boolean isInsideAttachRange(AttackableObject target) {
+    public boolean isInsideAttachRange(AttackReceiver target) {
         return this.getPosition().distance(target.getPosition()) <= attachMaxRange;
     }
 

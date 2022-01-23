@@ -1,6 +1,6 @@
 package com.peya.app.rpg;
 
-import com.peya.app.rpg.object.character.Faction;
+import com.peya.app.rpg.object.Faction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

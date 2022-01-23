@@ -1,4 +1,4 @@
-package com.peya.app.rpg.object;
+package com.peya.app.rpg.object.receiver;
 
 import com.peya.app.rpg.object.character.Character;
 import com.peya.app.rpg.util.Position;
@@ -9,14 +9,14 @@ import static com.peya.app.rpg.util.JSONUtils.toJson;
 import static java.lang.Math.max;
 
 @Getter
-public class AttackableObject {
+public class AttackReceiver {
 
     protected final Position position;
     protected final float maxHealth;
     protected final String name;
     protected float health;
 
-    public AttackableObject(String name, float health, Position position) {
+    public AttackReceiver(String name, float health, Position position) {
         this.name = name;
         this.maxHealth = health;
         this.position = position;
