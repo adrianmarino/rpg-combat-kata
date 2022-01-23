@@ -1,11 +1,12 @@
-package com.peya.app.rpg.object.receiver;
+package com.game.rpg.object.receiver;
 
-import com.peya.app.rpg.object.character.Character;
-import com.peya.app.rpg.util.Position;
+import com.game.rpg.util.JSONUtils;
+import com.game.rpg.object.character.Character;
+import com.game.rpg.util.Position;
 import lombok.Getter;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.peya.app.rpg.util.JSONUtils.toJson;
+import static com.game.rpg.util.JSONUtils.toJson;
 import static java.lang.Math.max;
 
 @Getter
@@ -50,6 +51,6 @@ public class AttackReceiver {
 
     @Override
     public String toString() {
-        return toJson(this);
+        return JSONUtils.toJson(this);
     }
 }

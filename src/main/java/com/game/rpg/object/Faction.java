@@ -1,6 +1,6 @@
-package com.peya.app.rpg.object;
+package com.game.rpg.object;
 
-import com.peya.app.rpg.object.character.Character;
+import com.game.rpg.object.character.Character;
 import lombok.Getter;
 
 import java.util.Set;

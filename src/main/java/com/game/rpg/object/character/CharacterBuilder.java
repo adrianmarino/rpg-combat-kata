@@ -1,10 +1,9 @@
-package com.peya.app.rpg.object.character;
+package com.game.rpg.object.character;
 
-import com.peya.app.rpg.DamageMultiplier;
-import com.peya.app.rpg.util.Position;
+import com.game.rpg.DamageMultiplier;
+import com.game.rpg.util.Position;
 
-import static com.peya.app.rpg.DamageMultiplier.defaultDamageMultiplier;
-import static com.peya.app.rpg.util.Position.zero;
+import static com.game.rpg.util.Position.zero;
 
 public final class CharacterBuilder {
     private DamageMultiplier damageMultiplier;
@@ -20,13 +19,13 @@ public final class CharacterBuilder {
         position = zero();
         health = 100;
         level = 1;
-        damageMultiplier = defaultDamageMultiplier();
+        damageMultiplier = DamageMultiplier.defaultDamageMultiplier();
     }
 
     public static CharacterBuilder aCharacter() {
         return new CharacterBuilder();
     }
-    
+
     public CharacterBuilder position(float x, float y) {
         return position(new Position(x, y));
     }

@@ -1,10 +1,10 @@
-package com.peya.app.rpg.object.character;
+package com.game.rpg.object.character;
 
 
-import com.peya.app.rpg.DamageMultiplier;
-import com.peya.app.rpg.object.Faction;
-import com.peya.app.rpg.object.receiver.AttackReceiver;
-import com.peya.app.rpg.util.Position;
+import com.game.rpg.DamageMultiplier;
+import com.game.rpg.object.Faction;
+import com.game.rpg.object.receiver.AttackReceiver;
+import com.game.rpg.util.Position;
 import lombok.Getter;
 
 import java.util.Set;

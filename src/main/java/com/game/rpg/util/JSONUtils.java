@@ -1,4 +1,4 @@
-package com.peya.app.rpg.util;
+package com.game.rpg.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

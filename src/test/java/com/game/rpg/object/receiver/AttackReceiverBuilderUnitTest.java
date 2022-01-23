@@ -1,10 +1,11 @@
-package com.peya.app.rpg;
+package com.game.rpg.object.receiver;
 
+import com.game.rpg.util.Position;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.peya.app.rpg.object.receiver.AttackReceiverBuilder.anAttackReceiver;
-import static com.peya.app.rpg.util.Position.zero;
+import static com.game.rpg.object.receiver.AttackReceiverBuilder.anAttackReceiver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,7 +22,7 @@ class AttackReceiverBuilderUnitTest {
         assertThat(attackReceiver.getHealth(), is(100F));
         assertThat(attackReceiver.getMaxHealth(), is(100F));
         assertThat(attackReceiver.getName(), is(""));
-        assertThat(attackReceiver.getPosition(), is(zero()));
+        assertThat(attackReceiver.getPosition(), Matchers.is(Position.zero()));
         assertThat(attackReceiver.destroyed(), is(false));
     }
 

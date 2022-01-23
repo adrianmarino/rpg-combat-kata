@@ -1,11 +1,11 @@
-package com.peya.app.rpg;
+package com.game.rpg.object.receiver;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.peya.app.rpg.object.character.CharacterBuilder.aCharacter;
-import static com.peya.app.rpg.object.receiver.AttackReceiverBuilder.anAttackReceiver;
-import static com.peya.app.rpg.util.Position.zero;
+import static com.game.rpg.object.character.CharacterBuilder.aCharacter;
+import static com.game.rpg.object.receiver.AttackReceiverBuilder.anAttackReceiver;
+import static com.game.rpg.util.Position.zero;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;

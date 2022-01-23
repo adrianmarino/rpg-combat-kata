@@ -1,4 +1,4 @@
-package com.peya.app.rpg.util;
+package com.game.rpg.util;
 
 import lombok.Getter;
 
