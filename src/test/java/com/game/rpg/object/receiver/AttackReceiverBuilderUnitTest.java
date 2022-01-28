@@ -1,5 +1,6 @@
 package com.game.rpg.object.receiver;
 
+import com.game.rpg.exception.impl.UnexpectedHealthException;
 import com.game.rpg.util.Position;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +15,7 @@ class AttackReceiverBuilderUnitTest {
 
     @Test
     @DisplayName("When create a default character it has 100% health, is alive and it's on first level")
-    void test1() {
+    void test1() throws Exception {
         // Perform
         var attackReceiver = anAttackReceiver().build();
 
@@ -29,12 +30,6 @@ class AttackReceiverBuilderUnitTest {
     @Test
     @DisplayName("When create a character with a negative health it throws an exception")
     void test2() {
-        assertThrows(IllegalArgumentException.class, () -> anAttackReceiver().health(-10).build());
-    }
-
-    @Test
-    @DisplayName("When create a character with an invalid position it throws an exception")
-    void test3() {
-        assertThrows(IllegalArgumentException.class, () -> anAttackReceiver().position(-1, 3).build());
+        assertThrows(UnexpectedHealthException.class, () -> anAttackReceiver().health(-10).build());
     }
 }

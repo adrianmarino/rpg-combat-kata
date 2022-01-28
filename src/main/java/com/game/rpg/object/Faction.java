@@ -7,6 +7,7 @@ import java.util.Set;
 
 import static com.google.common.collect.Sets.newHashSet;
 
+
 @Getter
 public class Faction {
 

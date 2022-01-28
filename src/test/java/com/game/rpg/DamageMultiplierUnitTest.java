@@ -25,7 +25,7 @@ class DamageMultiplierUnitTest {
 
     @Test
     @DisplayName("When attacker level is less than 5 it perform 50% less damage")
-    void test2() {
+    void test2() throws Exception {
         // Prepare
         var attacker = aCharacter().build();
         var target = aCharacter().level(6).build();
@@ -37,7 +37,7 @@ class DamageMultiplierUnitTest {
 
     @Test
     @DisplayName("When attacker level is greater than 5 it perform 50% more damage")
-    void test3() {
+    void test3() throws Exception {
         // Prepare
         var attacker = aCharacter().level(6).build();
         var target = aCharacter().build();
@@ -48,8 +48,8 @@ class DamageMultiplierUnitTest {
     }
 
     @Test
-    @DisplayName("When both attacker and attackable has a level diff less than 5 it perform specified damage")
-    void test4() {
+    @DisplayName("When both attacker and attack receiver has a level diff less than 5 it perform specified damage")
+    void test4() throws Exception {
         // Prepare
         var attacker = aCharacter().build();
         var target = aCharacter().build();

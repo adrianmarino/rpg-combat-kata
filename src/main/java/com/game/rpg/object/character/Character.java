@@ -2,15 +2,17 @@ package com.game.rpg.object.character;
 
 
 import com.game.rpg.DamageMultiplier;
+import com.game.rpg.exception.impl.*;
 import com.game.rpg.object.Faction;
 import com.game.rpg.object.receiver.AttackReceiver;
 import com.game.rpg.util.Position;
 import lombok.Getter;
+import lombok.NonNull;
 
+import java.util.Objects;
 import java.util.Set;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.game.rpg.exception.Assertions.assertChecked;
 import static com.google.common.collect.Sets.intersection;
 import static com.google.common.collect.Sets.newHashSet;
 import static java.lang.Math.min;
@@ -19,8 +21,11 @@ import static java.lang.Math.min;
 public class Character extends AttackReceiver {
 
     private final float attachMaxRange;
+
     private final Set<Faction> factions;
+
     private DamageMultiplier damageMultiplier;
+
     private int level;
 
     Character(
@@ -29,7 +34,7 @@ public class Character extends AttackReceiver {
             float health,
             int level,
             float attachMaxRange,
-            DamageMultiplier damageMultiplier) {
+            DamageMultiplier damageMultiplier) throws UnexpectedCharacterLevelException, UnexpectedHealthException {
         super(name, health, position);
         this.attachMaxRange = attachMaxRange;
         this.factions = newHashSet();
@@ -37,19 +42,19 @@ public class Character extends AttackReceiver {
         initializeDamageMultiplier(damageMultiplier);
     }
 
-    private void initializeDamageMultiplier(DamageMultiplier damageMultiplier) {
-        checkNotNull(damageMultiplier, "A damage multiplier is required to create a Character");
+    private void initializeDamageMultiplier(@NonNull DamageMultiplier damageMultiplier) {
         this.damageMultiplier = damageMultiplier;
     }
 
-    private void initializeLevel(int level) {
-        checkArgument(level > 0, "Level must be greater than 0");
+    private void initializeLevel(int level) throws UnexpectedCharacterLevelException {
+        assertChecked(level > 0, () -> new UnexpectedCharacterLevelException(level));
         this.level = level;
     }
 
     // Attack
 
-    public void attach(AttackReceiver target, float damage) {
+    public void attach(AttackReceiver target, float damage) throws CantDamageItselfException,
+            UnexpectedDamageException {
         target.receiveAttack(this, damage);
     }
 
@@ -62,20 +67,20 @@ public class Character extends AttackReceiver {
     }
 
     @Override
-    protected void attack(Character attacker, float damage) {
+    protected void attack(Character attacker, float damage) throws UnexpectedDamageException {
         if (attacker.isAlliedWith(this)) return;
         this.damage(damage * damageMultiplier.getMultiplier(attacker, this));
     }
 
     // Heal
 
-    public void healTo(Character anotherCharacter, float health) {
+    public void healTo(Character anotherCharacter, float health) throws UnexpectedHealException {
         if (this.isAlliedWith(anotherCharacter) && !anotherCharacter.destroyed())
             anotherCharacter.heal(health);
     }
 
-    void heal(float value) {
-        checkArgument(value >= 0, "Heal value must be greater than or equal to 0");
+    void heal(float value) throws UnexpectedHealException {
+        assertChecked(value >= 0, () -> new UnexpectedHealException(value));
         health = min(health + value, maxHealth);
     }
 

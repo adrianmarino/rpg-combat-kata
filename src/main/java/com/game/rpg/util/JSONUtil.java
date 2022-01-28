@@ -3,7 +3,7 @@ package com.game.rpg.util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class JSONUtils {
+public class JSONUtil {
 
     private static final Gson GSON = new Gson();
 
@@ -11,7 +11,7 @@ public class JSONUtils {
             .setPrettyPrinting()
             .create();
 
-    private JSONUtils() {
+    private JSONUtil() {
     }
 
     public static String toJson(Object obj) {

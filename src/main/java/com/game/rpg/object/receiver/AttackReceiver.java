@@ -1,47 +1,50 @@
 package com.game.rpg.object.receiver;
 
-import com.game.rpg.util.JSONUtils;
+import com.game.rpg.exception.impl.CantDamageItselfException;
+import com.game.rpg.exception.impl.UnexpectedDamageException;
+import com.game.rpg.exception.impl.UnexpectedHealthException;
 import com.game.rpg.object.character.Character;
 import com.game.rpg.util.Position;
 import lombok.Getter;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.game.rpg.util.JSONUtils.toJson;
+import static com.game.rpg.exception.Assertions.assertChecked;
+import static com.game.rpg.util.JSONUtil.toJson;
 import static java.lang.Math.max;
 
 @Getter
 public class AttackReceiver {
 
     protected final Position position;
-    protected final float maxHealth;
     protected final String name;
+    protected float maxHealth;
     protected float health;
 
-    public AttackReceiver(String name, float health, Position position) {
+    protected AttackReceiver(String name, float health, Position position) throws UnexpectedHealthException {
         this.name = name;
-        this.maxHealth = health;
         this.position = position;
         initializeHealth(health);
     }
 
-    private void initializeHealth(float health) {
-        checkArgument(health > 0, "Health must be greater than 0%");
+    private void initializeHealth(float health) throws UnexpectedHealthException {
+        assertChecked(health > 0, () -> new UnexpectedHealthException(health));
         this.health = health;
+        this.maxHealth = health;
     }
 
-    public void receiveAttack(Character attacker, float damage) {
-        checkArgument(!attacker.equals(this), "A character cannot damage itself");
+    public void receiveAttack(Character attacker, float damage) throws CantDamageItselfException,
+            UnexpectedDamageException {
+        assertChecked(!attacker.equals(this), () -> new CantDamageItselfException(this.getName()));
         if (!attacker.isInsideAttachRange(this)) return;
 
         attack(attacker, damage);
     }
 
-    protected void attack(Character attacker, float damage) {
+    protected void attack(Character attacker, float damage) throws UnexpectedDamageException {
         this.damage(damage);
     }
 
-    protected void damage(float value) {
-        checkArgument(value >= 0, "Damage value must be greater than or equal to 0");
+    protected void damage(float value) throws UnexpectedDamageException {
+        assertChecked(value >= 0, () -> new UnexpectedDamageException(value));
         health = max(health - value, 0);
     }
 
@@ -51,6 +54,6 @@ public class AttackReceiver {
 
     @Override
     public String toString() {
-        return JSONUtils.toJson(this);
+        return toJson(this);
     }
 }

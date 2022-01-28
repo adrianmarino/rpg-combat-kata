@@ -1,5 +1,6 @@
 package com.game.rpg.object.receiver;
 
+import com.game.rpg.exception.impl.UnexpectedDamageException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ public class AttackReceiverUnitTest {
 
     @Test
     @DisplayName("When apply a 50% damage to a character with 100 health it decrease 50 health and keep alive")
-    void test1() {
+    void test1() throws Exception {
         // Prepare
         var character = aCharacter().build();
         var attackReceiver = anAttackReceiver().build();
@@ -29,7 +30,7 @@ public class AttackReceiverUnitTest {
 
     @Test
     @DisplayName("When apply a 1000 damage to a character with 100 health it decrease 0 health and dead")
-    void test2() {
+    void test2() throws Exception {
         // Prepare
         var character = aCharacter().build();
         var attackReceiver = anAttackReceiver().build();
@@ -45,7 +46,7 @@ public class AttackReceiverUnitTest {
 
     @Test
     @DisplayName("When attach a thing inside attach range it has effect")
-    void test3() {
+    void test3() throws Exception {
         // Prepare
         var tree = anAttackReceiver().name("tree").build();
 
@@ -58,7 +59,7 @@ public class AttackReceiverUnitTest {
 
     @Test
     @DisplayName("When attach a thing outside attach range it has no effect")
-    void test4() {
+    void test4() throws Exception {
         // Prepare
         var character = aCharacter().position(zero()).build();
         var tree = anAttackReceiver()
@@ -75,14 +76,14 @@ public class AttackReceiverUnitTest {
 
     @Test
     @DisplayName("When damage with a negative value it throws an exception")
-    void test5() {
+    void test5() throws Exception {
         // Prepare
         var character = aCharacter().build();
         var attackReceiver = anAttackReceiver().build();
 
         // Perform and assert
         assertThrows(
-                IllegalArgumentException.class,
+                UnexpectedDamageException.class,
                 () -> attackReceiver.receiveAttack(character, -10F));
     }
 }

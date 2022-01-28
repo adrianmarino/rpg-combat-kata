@@ -1,8 +1,11 @@
 package com.game.rpg.object.character;
 
 import com.game.rpg.DamageMultiplier;
+import com.game.rpg.exception.impl.UnexpectedCharacterLevelException;
+import com.game.rpg.exception.impl.UnexpectedHealthException;
 import com.game.rpg.util.Position;
 
+import static com.game.rpg.DamageMultiplier.defaultDamageMultiplier;
 import static com.game.rpg.util.Position.zero;
 
 public final class CharacterBuilder {
@@ -19,7 +22,7 @@ public final class CharacterBuilder {
         position = zero();
         health = 100;
         level = 1;
-        damageMultiplier = DamageMultiplier.defaultDamageMultiplier();
+        damageMultiplier = defaultDamageMultiplier();
     }
 
     public static CharacterBuilder aCharacter() {
@@ -60,7 +63,7 @@ public final class CharacterBuilder {
         return this;
     }
 
-    public Character build() {
+    public Character build() throws UnexpectedCharacterLevelException, UnexpectedHealthException {
         return new Character(name, position, health, level, attachMaxRange, damageMultiplier);
     }
 }

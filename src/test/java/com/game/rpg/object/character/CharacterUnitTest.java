@@ -1,5 +1,7 @@
 package com.game.rpg.object.character;
 
+import com.game.rpg.exception.impl.CantDamageItselfException;
+import com.game.rpg.exception.impl.UnexpectedHealException;
 import com.game.rpg.object.Faction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When heal an alive character it increase your health")
-    void test1() {
+    void test1() throws Exception {
         // Prepare
         var faction = new Faction();
         var characterA = aCharacter().build().joinTo(faction);
@@ -32,7 +34,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When heal a dead character it not increase your health and stay dead")
-    void test2() {
+    void test2() throws Exception {
         // Prepare
         var faction = new Faction();
         var characterA = aCharacter().build().joinTo(faction);
@@ -49,7 +51,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When heal an alive character with 100 health it health stay same")
-    void test3() {
+    void test3() throws Exception {
         // Prepare
         var faction = new Faction();
         var characterA = aCharacter().build().joinTo(faction);
@@ -66,21 +68,22 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When heal with a negative value it throws an exception")
-    void test4() {
+    void test4() throws Exception {
         // Prepare
         var faction = new Faction("faction");
         var characterA = aCharacter().build().joinTo(faction);
         var characterB = aCharacter().build().joinTo(faction);
 
         // Perform and assert
-        assertThrows(IllegalArgumentException.class, () -> characterA.healTo(characterB, -10F));
+        assertThrows(UnexpectedHealException.class, () -> characterA.healTo(characterB, -10F));
     }
 
     // Attack
 
     @Test
-    @DisplayName("When a character A apply a 50% damage to a character B with 100 health it second decrease 50 health and keep alive")
-    void test5() {
+    @DisplayName("When a character A apply a 50% damage to a character B with 100 health it second decrease 50 " +
+            "health" + " and keep alive")
+    void test5() throws Exception {
         // Prepare
         var characterA = aCharacter().build();
         var characterB = aCharacter().build();
@@ -95,17 +98,17 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When a character A applies a damage to itself it throw an exception because it cant damage itself")
-    void test6() {
+    void test6() throws Exception {
         // Prepare
         var character = aCharacter().build();
 
         // Perform and assert
-        assertThrows(IllegalArgumentException.class, () -> character.attach(character, 1000F));
+        assertThrows(CantDamageItselfException.class, () -> character.attach(character, 1000F));
     }
 
     @Test
     @DisplayName("When a character A applies a damage another character B with 5 levels up it damage decrease to 50%")
-    void test7() {
+    void test7() throws Exception {
         // Prepare
         var characterA = aCharacter().build();
         var characterB = aCharacter().level(6).build();
@@ -120,7 +123,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When a character A applies a damage another character B with 5 levels down it damage increase to 50%")
-    void test8() {
+    void test8() throws Exception {
         // Prepare
         var characterA = aCharacter().level(6).build();
         var characterB = aCharacter().build();
@@ -135,7 +138,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When a character A applies a damage to character B outside to attach range it cant deal damage to B")
-    void test9() {
+    void test9() throws Exception {
         // Prepare
         var characterA = aCharacter().position(0, 0).build();
         var characterB = aCharacter().position(50, 50).build();
@@ -153,7 +156,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When has a character that belongs to a faction and check this it return true")
-    void test10() {
+    void test10() throws Exception {
         // Prepare
         var faction = new Faction();
         var character = aCharacter().build().joinTo(faction);
@@ -164,7 +167,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When has a character that not belongs to a faction and check this it return false")
-    void test11() {
+    void test11() throws Exception {
         // Prepare
         var character = aCharacter().build();
         var faction = new Faction();
@@ -175,7 +178,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When has a character that leave a faction and check if it belong to faction this it return false")
-    void test12() {
+    void test12() throws Exception {
         // Prepare
         var character = aCharacter().build();
         var faction = new Faction();
@@ -189,7 +192,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When two character belongs to same faction it return true")
-    void test13() {
+    void test13() throws Exception {
         // Prepare
         var faction = new Faction();
         var characterA = aCharacter().build().joinTo(faction);
@@ -201,7 +204,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When two character not belongs to same faction it return false")
-    void test14() {
+    void test14() throws Exception {
         // Prepare
         var characterA = aCharacter().build().joinTo(new Faction("A"));
         var characterB = aCharacter().build().joinTo(new Faction("B"));
@@ -212,7 +215,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When aliases characters apply damage to each other it has no effect")
-    void test15() {
+    void test15() throws Exception {
         // Prepare
         var faction = new Faction();
         var characterA = aCharacter().build().joinTo(faction);
@@ -228,7 +231,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When non aliases characters apply damage to each other it has effect")
-    void test16() {
+    void test16() throws Exception {
         // Prepare
         var characterA = aCharacter().build().joinTo(new Faction("A"));
         var characterB = aCharacter().build().joinTo(new Faction("B"));
@@ -242,7 +245,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When aliases characters heal to each other it has effect")
-    void test17() {
+    void test17() throws Exception {
         // Prepare
         var faction = new Faction("Faction");
         var characterA = aCharacter().build().joinTo(faction);
@@ -258,7 +261,7 @@ class CharacterUnitTest {
 
     @Test
     @DisplayName("When non aliases characters heal to each other it has no effect")
-    void test18() {
+    void test18() throws Exception {
         // Prepare
         var characterA = aCharacter().build();
         var characterB = aCharacter().build();

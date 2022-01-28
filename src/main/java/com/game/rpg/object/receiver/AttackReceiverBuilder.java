@@ -1,5 +1,6 @@
 package com.game.rpg.object.receiver;
 
+import com.game.rpg.exception.impl.UnexpectedHealthException;
 import com.game.rpg.util.Position;
 
 import static com.game.rpg.util.Position.zero;
@@ -38,7 +39,7 @@ public final class AttackReceiverBuilder {
         return this;
     }
 
-    public AttackReceiver build() {
+    public AttackReceiver build() throws UnexpectedHealthException {
         return new AttackReceiver(name, health, position);
     }
 }
